@@ -1,0 +1,285 @@
+/* ===== デスクトップ用（幅 1025px 以上） ===== */
+@media (min-width: 1025px) {
+  .dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    flex-direction: row;
+  }
+  .sidebar {
+    width: 250px;
+    background-color: #1e293b;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    position: static;
+    box-shadow: none;
+  }
+  .sidebar.hidden {
+    transform: translateX(-100%);
+  }
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+  .sidebar-toggle {
+    display: none;
+  }
+  .main-content {
+    flex: 1;
+    background-color: #f8fafc;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease;
+    padding-bottom: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+  .main-content.full-width {
+    margin-left: 0;
+  }
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+/* ===== タブレット用（幅 769px〜1024px） ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dashboard-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+  .sidebar {
+    width: 200px;
+    background-color: #1e293b;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    position: static;
+    box-shadow: none;
+  }
+  .sidebar.hidden {
+    transform: translateX(-100%);
+  }
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+  .sidebar-toggle {
+    display: none;
+  }
+  .main-content {
+    flex: 1;
+    background-color: #f8fafc;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease;
+    padding-bottom: 20px;
+    width: 100%;
+    height: 100vh;
+  }
+  .main-content.full-width {
+    margin-left: 0;
+  }
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
+/* ===== スマホ用（幅 768px 以下） ===== */
+@media (max-width: 768px) {
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+  }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #1e293b;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .sidebar.hidden {
+    transform: translateX(-100%);
+  }
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+  .sidebar-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 36px;
+    height: 36px;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 110;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-weight: bold;
+  }
+  .main-content {
+    width: 100vw;
+    position: static;
+    left: 0;
+    right: 0;
+    height: calc(100vh - 50px);
+    padding-bottom: 70px; /* ボトムナビゲーションの高さ分余白を追加 */
+    background-color: #f8fafc;
+    overflow-y: auto;
+  }
+  .main-content.full-width {
+    margin-left: 0;
+  }
+  .mobile-nav {
+    display: grid;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1e293b;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 2px;
+    z-index: 50;
+    height: 50px;
+  }
+  .mobile-nav div {
+    padding: 12px 8px;
+    text-align: center;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.85rem;
+    border-top: 2px solid transparent;
+  }
+  .mobile-nav div:hover {
+    background-color: #334155;
+  }
+  .mobile-nav div.active {
+    background-color: #3b82f6;
+    color: white;
+    border-top-color: #60a5fa;
+  }
+}
+
+/* ===== 共通スタイル ===== */
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #334155;
+}
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+.user-info {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-badge {
+  background-color: #ef4444;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 0;
+}
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-nav li {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.sidebar-nav li:hover {
+  background-color: #334155;
+}
+.sidebar-nav li.active {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 500;
+}
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid #334155;
+}
+.logout-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+.logout-button:hover {
+  background-color: #dc2626;
+}
+.menu-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ddd, transparent);
+  margin: 15px 0;
+  border: none;
+}
+.admin-menu {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+  border-radius: 8px;
+  margin: 5px 0;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.admin-menu:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4c93 100%);
+}
+.admin-menu.active {
+  background: linear-gradient(135deg, #4c63d2 0%, #5a4284 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.admin-mobile {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+.admin-mobile.active {
+  background: linear-gradient(135deg, #4c63d2, #5a4284);
+}

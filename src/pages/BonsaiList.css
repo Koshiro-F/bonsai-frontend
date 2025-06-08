@@ -1,0 +1,944 @@
+/* =========================
+   BonsaiList レスポンシブCSS
+   ========================= */
+
+/* ===== デスクトップ用（1025px以上） ===== */
+@media (min-width: 1025px) {
+  .bonsai-list-container {
+    padding: 24px;
+    height: 100%;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .bonsai-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: row;
+  }
+  .page-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #1e293b;
+  }
+  .bonsai-list-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .bonsai-list-header h1 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #1e293b;
+    flex-grow: 1;
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+  .add-button {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  .add-button:hover {
+    background-color: #059669;
+  }
+  .back-button {
+    background-color: #64748b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    margin-left: 10px;
+  }
+  .back-button:hover {
+    background-color: #475569;
+  }
+  .header-actions {
+    display: flex;
+  }
+  .bonsai-grid {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .bonsai-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .bonsai-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  .bonsai-card h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #1e293b;
+  }
+  .bonsai-card .species {
+    font-style: italic;
+    color: #64748b;
+    margin-bottom: 10px;
+  }
+  .bonsai-card .notes {
+    color: #64748b;
+    flex-grow: 1;
+    margin-bottom: 15px;
+    white-space: pre-line;
+  }
+  .card-actions {
+    margin-top: auto;
+  }
+  .pesticide-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    width: 100%;
+  }
+  .pesticide-button:hover {
+    background-color: #2563eb;
+  }
+  .image-upload-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 8px;
+    border-radius: 4px;
+  }
+  .button-row-bonsai-card {
+    display: flex;
+    gap: 50px;
+    margin-top: 10px;
+  }
+  .bonsai-image {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bonsai-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .bonsai-image img:hover {
+    transform: scale(1.05);
+  }
+  .clickable-image {
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .clickable-image:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+  .clickable-image:active {
+    transform: scale(1.02);
+  }
+  .add-form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .add-form-container h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-bottom: 20px;
+  }
+  .bonsai-form {
+    display: grid;
+    gap: 15px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #334155;
+  }
+  .form-group input, .form-group textarea {
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .submit-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  .submit-button:hover {
+    background-color: #2563eb;
+  }
+  .cancel-button {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  .cancel-button:hover {
+    background-color: #e2e8f0;
+  }
+  .loading {
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+    font-style: italic;
+  }
+  .empty-state {
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  .error-message {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #b91c1c;
+  }
+  .delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .delete-button:hover {
+    background-color: #c0392b;
+  }
+  .delete-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.5);
+  }
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+  }
+  select:focus {
+    border-color: #5c9436;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(92, 148, 54, 0.2);
+  }
+  .species {
+    color: #666;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+}
+
+/* ===== タブレット用（769px〜1024px） ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .bonsai-list-container {
+    padding: 16px;
+    height: 100%;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .bonsai-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: row;
+  }
+  .page-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #1e293b;
+  }
+  .bonsai-list-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .bonsai-list-header h1 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #1e293b;
+    flex-grow: 1;
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+  .add-button {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  .add-button:hover {
+    background-color: #059669;
+  }
+  .back-button {
+    background-color: #64748b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    margin-left: 10px;
+  }
+  .back-button:hover {
+    background-color: #475569;
+  }
+  .header-actions {
+    display: flex;
+  }
+  .bonsai-grid {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .bonsai-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .bonsai-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  .bonsai-card h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #1e293b;
+  }
+  .bonsai-card .species {
+    font-style: italic;
+    color: #64748b;
+    margin-bottom: 10px;
+  }
+  .bonsai-card .notes {
+    color: #64748b;
+    flex-grow: 1;
+    margin-bottom: 15px;
+    white-space: pre-line;
+  }
+  .card-actions {
+    margin-top: auto;
+  }
+  .pesticide-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    width: 100%;
+  }
+  .pesticide-button:hover {
+    background-color: #2563eb;
+  }
+  .image-upload-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 8px;
+    border-radius: 4px;
+  }
+  .button-row-bonsai-card {
+    display: flex;
+    gap: 50px;
+    margin-top: 10px;
+  }
+  .bonsai-image {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bonsai-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .bonsai-image img:hover {
+    transform: scale(1.05);
+  }
+  .clickable-image {
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .clickable-image:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+  .clickable-image:active {
+    transform: scale(1.02);
+  }
+  .add-form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .add-form-container h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-bottom: 20px;
+  }
+  .bonsai-form {
+    display: grid;
+    gap: 15px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #334155;
+  }
+  .form-group input, .form-group textarea {
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .submit-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  .submit-button:hover {
+    background-color: #2563eb;
+  }
+  .cancel-button {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  .cancel-button:hover {
+    background-color: #e2e8f0;
+  }
+  .loading {
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+    font-style: italic;
+  }
+  .empty-state {
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  .error-message {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #b91c1c;
+  }
+  .delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .delete-button:hover {
+    background-color: #c0392b;
+  }
+  .delete-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.5);
+  }
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+  }
+  select:focus {
+    border-color: #5c9436;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(92, 148, 54, 0.2);
+  }
+  .species {
+    color: #666;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+}
+
+/* ===== スマホ用（768px以下） ===== */
+@media (max-width: 768px) {
+  .bonsai-list-container {
+    padding: 6px;
+    height: 100%;
+    max-width: 100vw;
+    width: 100vw;
+    margin: 0;
+  }
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .bonsai-list-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .bonsai-list-header h1 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+    flex-grow: 1;
+    margin-right: 8px;
+    white-space: nowrap;
+  }
+  .page-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+  }
+  .add-button {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 16px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+  }
+  .add-button:hover {
+    background-color: #059669;
+  }
+  .back-button {
+    background-color: #64748b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    margin-left: 10px;
+  }
+  .back-button:hover {
+    background-color: #475569;
+  }
+  .header-actions {
+    display: flex;
+  }
+  .bonsai-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    margin-top: 20px;
+  }
+  .bonsai-card {
+    background-color: rgb(255, 255, 255);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .bonsai-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  }
+  .bonsai-card h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin-bottom: 8px;
+  }
+  .bonsai-card .species {
+    font-style: italic;
+    color: #64748b;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
+  .bonsai-card .notes {
+    color: #64748b;
+    flex-grow: 1;
+    margin-bottom: 10px;
+    white-space: pre-line;
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+  .card-actions {
+    margin-top: auto;
+  }
+  .pesticide-button {
+    background-color: #0fa730;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: background-color 0.2s;
+    width: 100%;
+  }
+  .pesticide-button:hover {
+    background-color: #109c1c;
+  }
+  .image-upload-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 8px;
+    border-radius: 4px;
+  }
+  .button-row-bonsai-card {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .bonsai-image {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bonsai-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .bonsai-image img:hover {
+    transform: scale(1.05);
+  }
+  .clickable-image {
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .clickable-image:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+  .clickable-image:active {
+    transform: scale(1.02);
+  }
+  .add-form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .add-form-container h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-bottom: 20px;
+  }
+  .bonsai-form {
+    display: grid;
+    gap: 15px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #334155;
+  }
+  .form-group input, .form-group textarea {
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .submit-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  .submit-button:hover {
+    background-color: #2563eb;
+  }
+  .cancel-button {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  .cancel-button:hover {
+    background-color: #e2e8f0;
+  }
+  .loading {
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+    font-style: italic;
+  }
+  .empty-state {
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  .error-message {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #b91c1c;
+  }
+  .delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .delete-button:hover {
+    background-color: #c0392b;
+  }
+  .delete-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.5);
+  }
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+  }
+  select:focus {
+    border-color: #5c9436;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(92, 148, 54, 0.2);
+  }
+  .species {
+    color: #666;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+}
+
+/* ===== 共通スタイル ===== */
+
+/* ===== 小さいスマホ用（iPhone等、480px以下） ===== */
+@media (max-width: 480px) {
+  .bonsai-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+    margin-top: 15px !important;
+  }
+  .bonsai-card {
+    background-color: white !important;
+    border-radius: 4px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    padding: 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .bonsai-image {
+    width: 100% !important;
+    height: 120px !important;
+    margin-bottom: 8px !important;
+    border-radius: 3px !important;
+    overflow: hidden !important;
+    background-color: #f1f5f9 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .bonsai-card h2 {
+    margin-top: 0 !important;
+    font-size: 1rem !important;
+    color: #1e293b !important;
+    margin-bottom: 6px !important;
+  }
+  .bonsai-card .species {
+    font-style: italic !important;
+    color: #64748b !important;
+    margin-bottom: 6px !important;
+    font-size: 0.8rem !important;
+  }
+  .bonsai-card .notes {
+    color: #64748b !important;
+    flex-grow: 1 !important;
+    margin-bottom: 8px !important;
+    white-space: pre-line !important;
+    font-size: 0.8rem !important;
+    line-height: 1.2 !important;
+  }
+  .pesticide-button {
+    background-color: #0fa730 !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 8px !important;
+    border-radius: 3px !important;
+    cursor: pointer !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+    transition: background-color 0.2s !important;
+    width: 100% !important;
+  }
+}

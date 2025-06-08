@@ -1,0 +1,1130 @@
+/* PesticideLog専用スタイル */
+
+/* 農薬記録ページスタイル */
+.pesticide-log-container {
+  padding: 20px;
+  height: 100%;
+}
+
+/* 一番上の戻るボタンのスタイル */
+.top-back-button-container {
+  margin-bottom: 15px;
+}
+
+.top-back-button-container .back-button {
+  background-color: #64748b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+
+.top-back-button-container .back-button:hover {
+  background-color: #475569;
+}
+
+/* 農薬記録追加ボタンのコンテナ */
+.add-button-container {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.add-button-container .add-button {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.add-button-container .add-button:hover {
+  background-color: #059669;
+}
+
+.bonsai-name {
+  font-size: 1rem;
+  color: #64748b;
+  font-weight: normal;
+}
+
+.bonsai-species {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.bonsai-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #1e293b;
+}
+
+/* 旧版のheader-actions、add-button、back-buttonスタイルを削除（新しいコンテナクラスで代替） */
+
+/* 強化されたフォームのスタイル */
+.enhanced-form {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.enhanced-form h2 {
+  margin: 0 0 1.5rem 0;
+  color: #495057;
+  text-align: center;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 1rem;
+}
+
+.form-section h3 {
+  margin: 0 0 1rem 0;
+  color: #6c757d;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.pesticide-selection {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.selection-toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.selection-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+.pesticide-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.pesticide-form {
+  display: grid;
+  gap: 15px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.submit-button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-button:hover {
+  background: #218838;
+}
+
+.cancel-button {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-button:hover {
+  background: #5a6268;
+}
+
+.add-form-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.add-form-container h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+/* 月次リスク分析のスタイル */
+.monthly-risks-container {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.disclaimer-box {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1.5rem;
+}
+
+.disclaimer-box h4 {
+  color: #856404;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.disclaimer-box ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #6c757d;
+}
+
+.disclaimer-box li {
+  margin-bottom: 0.3rem;
+}
+
+.risk-analysis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.risk-month-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+.risk-month-card h3 {
+  margin: 0 0 1rem 0;
+  color: #495057;
+  font-size: 1.2rem;
+}
+
+.risk-month-card h4 {
+  margin: 1rem 0 0.5rem 0;
+  color: #6c757d;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.risks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.risk-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.risk-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.risk-badge.pest {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.risk-badge.disease {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.occurrence-level {
+  font-size: 0.875rem;
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recommendation-item {
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.recommendation-item:hover {
+  background: #e3f2fd;
+  border-color: #2196f3;
+  transform: translateY(-1px);
+}
+
+.pesticide-name {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.25rem;
+}
+
+.pesticide-details {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.type-badge {
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.type-badge.insecticide {
+  background: #dff0d8;
+  color: #3c763d;
+}
+
+.type-badge.fungicide {
+  background: #d9edf7;
+  color: #31708f;
+}
+
+.effectiveness {
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
+.warning {
+  font-size: 0.75rem;
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+.no-risks {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* 推奨農薬表示エリア */
+.recommendation-summary {
+  margin: 20px 0;
+  padding: 5px;
+  background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+  border-radius: 12px;
+  border: 1px solid #d4e8d4;
+}
+
+.recommendation-summary h2 {
+  margin: 0 0 15px 0;
+  color: #2d5a2d;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.recommendation-summary .summary-cards {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.recommendation-summary .summary-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+  flex: 1;
+  min-width: 280px;
+  max-width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recommendation-summary .summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.recommendation-card {
+  max-width: 100%;
+}
+
+.recommendation-card.high-confidence {
+  border-left: 4px solid #4caf50;
+}
+
+.recommendation-card.medium-confidence {
+  border-left: 4px solid #ff9800;
+}
+
+.recommendation-card.low-confidence {
+  border-left: 4px solid #f44336;
+}
+
+.recommendation-card.loading {
+  border-left: 4px solid #2196f3;
+  background: linear-gradient(90deg, #f0f0f0 25%, transparent 37%, transparent 63%, #f0f0f0 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.recommendation-card.error {
+  border-left: 4px solid #f44336;
+  background-color: #ffebee;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.card-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.confidence-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.confidence-badge.高 {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.confidence-badge.中 {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.confidence-badge.低 {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.recommendation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pesticide-name-large {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #1565c0;
+  text-align: center;
+  padding: 10px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 8px;
+  border: 1px solid #90caf9;
+}
+
+.recommendation-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px dotted #ddd;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-item .label {
+  font-weight: 500;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.detail-item .value {
+  font-weight: 600;
+  color: #333;
+}
+
+.target-pests {
+  margin-top: 10px;
+}
+
+.target-pests .label {
+  display: block;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 6px;
+  font-size: 0.9em;
+}
+
+.pests-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pest-tag {
+  background-color: #fff3e0;
+  color: #e65100;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.warning-message {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.warning-icon {
+  font-size: 1.2em;
+}
+
+.warning-text {
+  color: #856404;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.loading-text, .error-text {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.error-text {
+  color: #d32f2f;
+}
+
+.logs-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.logs-container h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #1e293b;
+}
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.logs-table th, .logs-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.logs-table th {
+  font-weight: 600;
+  color: #334155;
+  background-color: #f8fafc;
+}
+
+.logs-table tr:hover {
+  background-color: #f8fafc;
+}
+
+/* 強化されたテーブルのスタイル */
+.logs-table.enhanced {
+  font-size: 0.9rem;
+}
+
+.logs-table.enhanced th {
+  background: #495057;
+  color: white;
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.logs-table.enhanced td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.logs-table.enhanced .pesticide-name {
+  font-weight: 600;
+  color: #495057;
+}
+
+.logs-table.enhanced .notes {
+  max-width: 200px;
+  word-wrap: break-word;
+  font-size: 0.85rem;
+}
+
+.loading {
+  padding: 20px;
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+}
+
+.empty-state {
+  padding: 30px;
+  text-align: center;
+  color: #64748b;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.error-message {
+  background-color: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  color: #b91c1c;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
+
+.delete-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.5);
+}
+
+/* テーブルの操作列のスタイル調整 */
+.logs-table th:last-child,
+.logs-table td:last-child {
+  width: 80px;
+  text-align: center;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .risk-analysis-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .risk-month-card {
+    padding: 0.75rem;
+  }
+  
+  .risk-month-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .risk-month-card h4 {
+    font-size: 0.9rem;
+    margin: 0.75rem 0 0.4rem 0;
+  }
+  
+  .risk-item {
+    padding: 0.4rem;
+    font-size: 0.85rem;
+  }
+  
+  .risk-badge {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.75rem;
+  }
+  
+  .recommendation-item {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .pesticide-name {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .type-badge {
+    padding: 0.1rem 0.3rem;
+    font-size: 0.7rem;
+  }
+  
+  .effectiveness {
+    font-size: 0.7rem;
+  }
+  
+  .warning {
+    font-size: 0.7rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  
+  .recommendation-summary .summary-card {
+    min-width: auto;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .pesticide-name-large {
+    font-size: 1.2em;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .header-actions {
+    width: 100%;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .logs-table.enhanced {
+    font-size: 0.8rem;
+  }
+  
+  .logs-table.enhanced th,
+  .logs-table.enhanced td {
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .logs-table.enhanced .notes {
+    max-width: 150px;
+  }
+  
+  .monthly-risks-container {
+    padding: 1rem;
+  }
+
+  .occurrence-level {
+    font-size: 0.6rem;
+  }
+}
+
+/* 小さいスマホ用追加対応 */
+@media (max-width: 480px) {
+  .risk-analysis-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  
+  .risk-month-card {
+    padding: 0.5rem;
+  }
+  
+  .risk-month-card h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .risk-month-card h4 {
+    font-size: 0.8rem;
+    margin: 0.5rem 0 0.3rem 0;
+  }
+  
+  .risk-item {
+    padding: 0.3rem;
+    font-size: 0.8rem;
+  }
+  
+  .risk-badge {
+    padding: 0.15rem 0.3rem;
+    font-size: 0.7rem;
+  }
+  
+  .recommendation-item {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
+  
+  .pesticide-name {
+    font-size: 0.85rem;
+    margin-bottom: 0.15rem;
+  }
+  
+  .type-badge {
+    padding: 0.08rem 0.25rem;
+    font-size: 0.65rem;
+  }
+  
+  .effectiveness, .warning {
+    font-size: 0.65rem;
+  }
+  
+  .monthly-risks-container {
+    padding: 0.75rem;
+  }
+}
+
+/* 推奨農薬表示の改良 */
+.pesticide-recommendations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.pesticide-recommendations.loading,
+.pesticide-recommendations.error {
+  grid-template-columns: 1fr 1fr;
+}
+
+.recommendation-card.insecticide {
+  border-left: 4px solid #f59e0b;
+}
+
+.recommendation-card.fungicide {
+  border-left: 4px solid #8b5cf6;
+}
+
+.recommendation-card.insecticide .card-header h4 {
+  color: #f59e0b;
+}
+
+.recommendation-card.fungicide .card-header h4 {
+  color: #8b5cf6;
+}
+
+/* 全般情報スタイル */
+.general-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.season-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.season-advice {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.days-since-last {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  background: #e2e8f0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* 信頼度バッジの色調整 */
+.confidence-badge.unknown {
+  background-color: #9ca3af;
+  color: white;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .pesticide-recommendations {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .recommendation-summary .summary-cards {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  .recommendation-summary .summary-card {
+    min-width: 0;
+    padding: 10px;
+  }
+  .pesticide-name-large {
+    font-size: 1.1em;
+    padding: 6px;
+  }
+  .card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+}
+
+@media (max-width: 480px) {
+  .pesticide-recommendations {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+  }
+  .recommendation-summary .summary-card {
+    min-width: 0;
+    padding: 6px;
+  }
+  .pesticide-name-large {
+    font-size: 1em;
+    padding: 4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .season-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+/* 殺虫剤・殺菌剤同時追加フォームのスタイル */
+.dual-pesticide-form {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.dual-pesticide-form h2 {
+  margin: 0 0 1.5rem 0;
+  color: #495057;
+  text-align: center;
+}
+
+.dual-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.pesticide-section {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.pesticide-section.insecticide {
+  border-color: #f59e0b;
+}
+
+.pesticide-section.fungicide {
+  border-color: #8b5cf6;
+}
+
+.section-header {
+  margin-bottom: 1rem;
+}
+
+.section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.section-toggle input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.section-content {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 1px solid #dee2e6;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .section-content {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid #dee2e6;
+    }
+    
+  .dual-sections {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .pesticide-section {
+    padding: 1rem;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+  }
+  
+  .dual-pesticide-form {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-toggle {
+    font-size: 0.9rem;
+  }
+  
+  .section-title {
+    font-size: 0.9rem;
+  }
+  
+  .pesticide-section {
+    padding: 0.75rem;
+  }
+} 
