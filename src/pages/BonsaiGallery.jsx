@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './Pages.css';
+import './BonsaiGallery.css';
 import ImageUploader from './ImageUploader';
 
 const BonsaiGallery = ({ apiBaseUrl, userId, bonsaiId }) => {
