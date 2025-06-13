@@ -22,7 +22,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
     dosage: '',
     water_amount: '',
     dilution_ratio: '',
-    actual_usage_amount: '',
     notes: ''
   });
 
@@ -34,8 +33,11 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       usage_date: new Date().toISOString().split('T')[0],
       dosage: '',
       water_amount: '',
+      water_amount_custom: '',
+      use_custom_water: false,
       dilution_ratio: '',
-      actual_usage_amount: '',
+      dilution_ratio_custom: '',
+      use_custom_dilution: false,
       notes: '',
       useCustomName: false,
       customName: ''
@@ -46,13 +48,39 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       usage_date: new Date().toISOString().split('T')[0],
       dosage: '',
       water_amount: '',
+      water_amount_custom: '',
+      use_custom_water: false,
       dilution_ratio: '',
-      actual_usage_amount: '',
+      dilution_ratio_custom: '',
+      use_custom_dilution: false,
       notes: '',
       useCustomName: false,
       customName: ''
     }
   });
+
+  // 水の量の選択肢
+  const waterAmountOptions = [
+    { value: '100', label: '100ml' },
+    { value: '200', label: '200ml' },
+    { value: '500', label: '500ml' },
+    { value: '1000', label: '1L (1000ml)' },
+    { value: '2000', label: '2L (2000ml)' },
+    { value: '5000', label: '5L (5000ml)' },
+    { value: 'custom', label: 'その他（手入力）' }
+  ];
+
+  // 希釈比の選択肢
+  const dilutionRatioOptions = [
+    { value: '100', label: '100倍' },
+    { value: '200', label: '200倍' },
+    { value: '500', label: '500倍' },
+    { value: '1000', label: '1000倍' },
+    { value: '2000', label: '2000倍' },
+    { value: '3000', label: '3000倍' },
+    { value: '5000', label: '5000倍' },
+    { value: 'custom', label: 'その他（手入力）' }
+  ];
 
   // 現在選択されている盆栽のID
   const [bonsaiId, setBonsaiId] = useState(window.selectedBonsaiId);
@@ -91,7 +119,7 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
   // 農薬リストを取得（マスタデータベースから）
   const fetchPesticideList = async () => {
     try {
-      const response = await fetch(`${apiBaseUrl}/api/admin/master/pesticides?user_id=${userId}`, {
+      const response = await fetch(`${apiBaseUrl}/api/pesticides/list?user_id=${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +139,11 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       }
     } catch (err) {
       console.error('農薬リスト取得エラー:', err);
-      setPesticideList([]);
+      setPesticideList([
+        { id: 1, name: "オルトラン", type: "insecticide", description: "汎用殺虫剤" },
+        { id: 2, name: "スミチオン", type: "insecticide", description: "速効性殺虫剤" },
+        { id: 3, name: "トップジンM", type: "fungicide", description: "系統殺菌剤" }
+      ]);
     }
   };
 
@@ -329,13 +361,49 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
 
   // 新しいフォーム用の入力処理
   const handleNewLogChange = (type, field, value) => {
-    setNewLogs(prev => ({
-      ...prev,
-      [type]: {
-        ...prev[type],
-        [field]: value
+    setNewLogs(prev => {
+      const updated = {
+        ...prev,
+        [type]: {
+          ...prev[type],
+          [field]: value
+        }
+      };
+
+      // 薬剤量の自動計算
+      if (field === 'pesticide_name' || field === 'customName' || 
+          field === 'water_amount' || field === 'water_amount_custom' ||
+          field === 'dilution_ratio' || field === 'dilution_ratio_custom') {
+        
+        const currentData = updated[type];
+        
+        // 水の量を取得（カスタム入力かどうかで分岐）
+        let waterAmount = '';
+        if (currentData.water_amount === 'custom') {
+          waterAmount = currentData.water_amount_custom;
+        } else {
+          waterAmount = currentData.water_amount;
+        }
+        
+        // 希釈比を取得（カスタム入力かどうかで分岐）
+        let dilutionRatio = '';
+        if (currentData.dilution_ratio === 'custom') {
+          dilutionRatio = currentData.dilution_ratio_custom;
+        } else {
+          dilutionRatio = currentData.dilution_ratio;
+        }
+        
+        // 自動計算を実行（水の量と希釈比が揃っている場合のみ）
+        if (waterAmount && dilutionRatio && 
+            waterAmount !== 'custom' && dilutionRatio !== 'custom' &&
+            !isNaN(parseFloat(waterAmount)) && !isNaN(parseFloat(dilutionRatio))) {
+          const calculatedAmount = calculatePesticideAmount('dummy', waterAmount, dilutionRatio);
+          updated[type].dosage = calculatedAmount;
+        }
       }
-    }));
+
+      return updated;
+    });
   };
 
   // 農薬タイプの有効/無効切り替え
@@ -359,8 +427,11 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         usage_date: currentDate,
         dosage: '',
         water_amount: '',
+        water_amount_custom: '',
+        use_custom_water: false,
         dilution_ratio: '',
-        actual_usage_amount: '',
+        dilution_ratio_custom: '',
+        use_custom_dilution: false,
         notes: '',
         useCustomName: false,
         customName: ''
@@ -371,8 +442,11 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         usage_date: currentDate,
         dosage: '',
         water_amount: '',
+        water_amount_custom: '',
+        use_custom_water: false,
         dilution_ratio: '',
-        actual_usage_amount: '',
+        dilution_ratio_custom: '',
+        use_custom_dilution: false,
         notes: '',
         useCustomName: false,
         customName: ''
@@ -404,7 +478,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         dosage: newLog.dosage,
         water_amount: newLog.water_amount,
         dilution_ratio: newLog.dilution_ratio,
-        actual_usage_amount: newLog.actual_usage_amount,
         notes: newLog.notes
       };
 
@@ -428,7 +501,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         dosage: '',
         water_amount: '',
         dilution_ratio: '',
-        actual_usage_amount: '',
         notes: ''
       });
       setSelectedPesticide('');
@@ -469,14 +541,23 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         return;
       }
 
+      // 水の量を取得（カスタム入力かどうかで分岐）
+      const waterAmount = newLogs.insecticide.water_amount === 'custom' ? 
+        newLogs.insecticide.water_amount_custom : 
+        newLogs.insecticide.water_amount;
+
+      // 希釈比を取得（カスタム入力かどうかで分岐）
+      const dilutionRatio = newLogs.insecticide.dilution_ratio === 'custom' ? 
+        newLogs.insecticide.dilution_ratio_custom : 
+        newLogs.insecticide.dilution_ratio;
+
       logsToAdd.push({
         bonsai_id: parseInt(bonsaiId),
         pesticide_name: insecticideName,
         usage_date: newLogs.insecticide.usage_date,
         dosage: newLogs.insecticide.dosage,
-        water_amount: newLogs.insecticide.water_amount,
-        dilution_ratio: newLogs.insecticide.dilution_ratio,
-        actual_usage_amount: newLogs.insecticide.actual_usage_amount,
+        water_amount: waterAmount,
+        dilution_ratio: dilutionRatio,
         notes: newLogs.insecticide.notes
       });
     }
@@ -492,14 +573,23 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         return;
       }
 
+      // 水の量を取得（カスタム入力かどうかで分岐）
+      const waterAmount = newLogs.fungicide.water_amount === 'custom' ? 
+        newLogs.fungicide.water_amount_custom : 
+        newLogs.fungicide.water_amount;
+
+      // 希釈比を取得（カスタム入力かどうかで分岐）
+      const dilutionRatio = newLogs.fungicide.dilution_ratio === 'custom' ? 
+        newLogs.fungicide.dilution_ratio_custom : 
+        newLogs.fungicide.dilution_ratio;
+
       logsToAdd.push({
         bonsai_id: parseInt(bonsaiId),
         pesticide_name: fungicideName,
         usage_date: newLogs.fungicide.usage_date,
         dosage: newLogs.fungicide.dosage,
-        water_amount: newLogs.fungicide.water_amount,
-        dilution_ratio: newLogs.fungicide.dilution_ratio,
-        actual_usage_amount: newLogs.fungicide.actual_usage_amount,
+        water_amount: waterAmount,
+        dilution_ratio: dilutionRatio,
         notes: newLogs.fungicide.notes
       });
     }
@@ -660,39 +750,37 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="water_amount">水の量</label>
-              <input
-                type="text"
+              <select
                 id="water_amount"
-                name="water_amount"
                 value={newLog.water_amount}
-                onChange={handleInputChange}
-                placeholder="例: 500ml"
-              />
+                onChange={(e) => handleInputChange({ target: { name: 'water_amount', value: e.target.value } })}
+                required
+              >
+                <option value="">水の量を選択</option>
+                {waterAmountOptions.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
             
             <div className="form-group">
               <label htmlFor="dilution_ratio">希釈比</label>
-              <input
-                type="text"
+              <select
                 id="dilution_ratio"
-                name="dilution_ratio"
                 value={newLog.dilution_ratio}
-                onChange={handleInputChange}
-                placeholder="例: 1:1000"
-              />
+                onChange={(e) => handleInputChange({ target: { name: 'dilution_ratio', value: e.target.value } })}
+                required
+              >
+                <option value="">希釈比を選択</option>
+                {dilutionRatioOptions.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="actual_usage_amount">実際の使用量</label>
-            <input
-              type="text"
-              id="actual_usage_amount"
-              name="actual_usage_amount"
-              value={newLog.actual_usage_amount}
-              onChange={handleInputChange}
-              placeholder="例: 50ml"
-            />
           </div>
           
           <div className="form-group">
@@ -810,46 +898,79 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
                     required
                   />
                 </div>
+              </div>
+
+              <div className="form-row">
                 <div className="form-group">
-                  <label>使用量</label>
-                  <input
-                    type="text"
-                    value={data.dosage}
-                    onChange={(e) => handleNewLogChange(type, 'dosage', e.target.value)}
-                    placeholder="例: 5ml/L"
-                  />
+                  <label>水の量 *</label>
+                  <select
+                    value={data.water_amount}
+                    onChange={(e) => handleNewLogChange(type, 'water_amount', e.target.value)}
+                    required
+                  >
+                    <option value="">水の量を選択</option>
+                    {waterAmountOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  {data.water_amount === 'custom' && (
+                    <input
+                      type="text"
+                      value={data.water_amount_custom}
+                      onChange={(e) => handleNewLogChange(type, 'water_amount_custom', e.target.value)}
+                      placeholder="例: 750ml"
+                      className="custom-input"
+                      required
+                    />
+                  )}
+                </div>
+                <div className="form-group">
+                  <label>希釈比 *</label>
+                  <select
+                    value={data.dilution_ratio}
+                    onChange={(e) => handleNewLogChange(type, 'dilution_ratio', e.target.value)}
+                    required
+                  >
+                    <option value="">希釈比を選択</option>
+                    {dilutionRatioOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  {data.dilution_ratio === 'custom' && (
+                    <input
+                      type="text"
+                      value={data.dilution_ratio_custom}
+                      onChange={(e) => handleNewLogChange(type, 'dilution_ratio_custom', e.target.value)}
+                      placeholder="例: 1500"
+                      className="custom-input"
+                      required
+                    />
+                  )}
                 </div>
               </div>
 
               <div className="form-row">
                 <div className="form-group">
-                  <label>水の量</label>
-                  <input
-                    type="text"
-                    value={data.water_amount}
-                    onChange={(e) => handleNewLogChange(type, 'water_amount', e.target.value)}
-                    placeholder="例: 500ml"
-                  />
+                  <label>薬剤使用量 {data.dosage && '(水量÷希釈倍率で自動計算)'}</label>
+                  <div className={`dosage-field ${data.dosage ? 'has-calculation' : ''}`}>
+                    <input
+                      type="text"
+                      value={data.dosage}
+                      onChange={(e) => handleNewLogChange(type, 'dosage', e.target.value)}
+                      placeholder="水量と希釈倍率から自動計算されます"
+                      className={data.dosage ? 'auto-calculated' : ''}
+                    />
+                  </div>
+                  {data.dosage && (
+                    <small className="calculation-note">
+                      ※ 水量÷希釈倍率で自動計算されました。必要に応じて調整してください。
+                    </small>
+                  )}
                 </div>
-                <div className="form-group">
-                  <label>希釈比</label>
-                  <input
-                    type="text"
-                    value={data.dilution_ratio}
-                    onChange={(e) => handleNewLogChange(type, 'dilution_ratio', e.target.value)}
-                    placeholder="例: 1:1000"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>実際の使用量</label>
-                <input
-                  type="text"
-                  value={data.actual_usage_amount}
-                  onChange={(e) => handleNewLogChange(type, 'actual_usage_amount', e.target.value)}
-                  placeholder="例: 50ml"
-                />
               </div>
 
               <div className="form-group">
@@ -1211,6 +1332,41 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
     );
   };
 
+  // 薬剤量を自動計算する関数
+  const calculatePesticideAmount = (pesticideName, waterAmount, dilutionRatio) => {
+    if (!pesticideName || !waterAmount || !dilutionRatio) {
+      return '';
+    }
+
+    try {
+      const waterAmountMl = parseFloat(waterAmount);
+      const dilutionFactor = parseFloat(dilutionRatio);
+
+      if (isNaN(waterAmountMl) || isNaN(dilutionFactor) || dilutionFactor === 0) {
+        return '';
+      }
+
+      // 計算: 水の量(ml) ÷ 希釈倍率 = 薬剤量(ml)
+      // 例: 500ml の水で 1000倍希釈 → 500 ÷ 1000 = 0.5ml
+      const calculatedAmountMl = waterAmountMl / dilutionFactor;
+      
+      // 単位を適切に調整
+      if (calculatedAmountMl < 0.1) {
+        // 0.1ml未満の場合はμl表示
+        return `${(calculatedAmountMl * 1000).toFixed(1)}μl`;
+      } else if (calculatedAmountMl < 1) {
+        // 1ml未満の場合は小数点1桁
+        return `${calculatedAmountMl.toFixed(1)}ml`;
+      } else {
+        // 1ml以上の場合は小数点2桁
+        return `${calculatedAmountMl.toFixed(2)}ml`;
+      }
+    } catch (error) {
+      console.error('薬剤量計算エラー:', error);
+      return '';
+    }
+  };
+
   // 盆栽が選択されていない場合
   if (!bonsaiId) {
     return (
@@ -1236,8 +1392,7 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         ) : logs.length > 0 ? (
           <div className="logs-container">
             <h2>全ての農薬記録履歴</h2>
-            <table className="logs-table enhanced
-            ">
+            <table className="logs-table enhanced">
               <thead>
                 <tr>
                   <th>盆栽名</th>
@@ -1335,7 +1490,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
                 <th>使用量</th>
                 <th>水量</th>
                 <th>希釈比</th>
-                <th>実使用量</th>
                 <th>メモ</th>
                 <th>操作</th>
               </tr>
@@ -1348,7 +1502,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
                   <td>{log.dosage || log.amount || '-'}</td>
                   <td>{log.water_amount || '-'}</td>
                   <td>{log.dilution_ratio || '-'}</td>
-                  <td>{log.actual_usage_amount || '-'}</td>
                   <td className="notes">{log.notes || '-'}</td>
                   <td>
                     <button 

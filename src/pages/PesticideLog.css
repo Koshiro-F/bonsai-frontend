@@ -1117,14 +1117,78 @@
 
 @media (max-width: 480px) {
   .section-toggle {
-    font-size: 0.9rem;
+    flex-direction: column;
   }
-  
+
   .section-title {
     font-size: 0.9rem;
   }
-  
+
   .pesticide-section {
-    padding: 0.75rem;
+    margin-bottom: 1rem;
   }
+}
+
+/* 自動計算とカスタム入力のスタイル */
+.auto-calculated {
+  background-color: #e8f5e8;
+  border-color: #28a745;
+  font-weight: 500;
+}
+
+.auto-calculated:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+.calculation-note {
+  display: block;
+  margin-top: 0.25rem;
+  color: #28a745;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.custom-input {
+  margin-top: 0.5rem;
+  border-color: #ffc107;
+  background-color: #fff8e1;
+}
+
+.custom-input:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+}
+
+.form-group select:required:invalid {
+  border-color: #dc3545;
+}
+
+.form-group select:required:valid {
+  border-color: #28a745;
+}
+
+/* 選択肢のスタイル改善 */
+.form-group select option {
+  padding: 0.5rem;
+}
+
+.form-group select option:disabled {
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* 薬剤量フィールドの特別なスタイル */
+.dosage-field {
+  position: relative;
+}
+
+.dosage-field.has-calculation::after {
+  content: "🧮";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1.2rem;
 } 
