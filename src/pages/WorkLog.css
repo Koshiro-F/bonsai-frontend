@@ -55,11 +55,14 @@
 
 /* 作業記録追加ボタン */
 .add-log-section {
+  display: flex;
   margin-bottom: 20px;
+  align-items: center;
+  flex-direction: column;
 }
 
 .add-log-btn {
-  background: linear-gradient(135deg, #28a745, #20c997);
+  background: #10b981;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -71,7 +74,7 @@
 }
 
 .add-log-btn:hover {
-  background: linear-gradient(135deg, #218838, #1ea085);
+  background: #059669;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
 }
@@ -308,17 +311,18 @@
   }
   
   .log-header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     gap: 12px;
   }
   
   .log-date-type {
-    width: 100%;
+    flex: 1;
   }
   
   .delete-btn {
-    align-self: flex-end;
+    flex-shrink: 0;
   }
 }
 

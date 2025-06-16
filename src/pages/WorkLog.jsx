@@ -219,7 +219,7 @@ function WorkLog({ apiBaseUrl, userId }) {
               className="add-log-btn"
               onClick={() => setShowAddForm(!showAddForm)}
             >
-              {showAddForm ? '🔽 フォームを閉じる' : '➕ 作業記録を追加'}
+              {showAddForm ? 'フォームを閉じる' : '作業記録を追加'}
             </button>
           </div>
 
@@ -323,7 +323,7 @@ function WorkLog({ apiBaseUrl, userId }) {
                         onClick={() => handleDeleteWorkLog(log.id)}
                         title="削除"
                       >
-                        🗑️
+                        削除
                       </button>
                     </div>
                     

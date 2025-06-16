@@ -3,7 +3,7 @@
 /* 農薬記録ページスタイル */
 .pesticide-log-container {
   padding: 20px;
-  height: 100%;
+  min-height: 100vh;
 }
 
 /* 一番上の戻るボタンのスタイル */
@@ -21,6 +21,7 @@
   font-weight: 500;
   transition: background-color 0.2s;
   display: inline-block;
+  width: 150px;
 }
 
 .top-back-button-container .back-button:hover {
@@ -44,6 +45,7 @@
   font-size: 1rem;
   transition: background-color 0.2s;
   box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+  width: 50%;
 }
 
 .add-button-container .add-button:hover {
@@ -264,12 +266,13 @@
 
 .disclaimer-box ul {
   margin: 0;
-  padding-left: 1.2rem;
+  padding-left: 0.2rem;
   color: #6c757d;
 }
 
 .disclaimer-box li {
   margin-bottom: 0.3rem;
+  list-style: none;
 }
 
 .risk-analysis-grid {
