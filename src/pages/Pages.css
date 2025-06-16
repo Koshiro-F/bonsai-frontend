@@ -789,23 +789,6 @@
 
 /* PesticideLog.jsxで使用されていた推奨農薬表示エリアのスタイルはPesticideLog.cssに移動しました */
 
-.delete-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.5);
-}
-
-/* 盆栽カード内の削除ボタン専用スタイル */
-.bonsai-card .delete-button {
-  width: 100%;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  background-color: #dc2626;
-}
-
-.bonsai-card .delete-button:hover {
-  background-color: #b91c1c;
-}
 
 /* 盆栽画像関連のスタイル */
 .bonsai-image {

@@ -33,8 +33,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       usage_date: new Date().toISOString().split('T')[0],
       dosage: '',
       water_amount: '',
-      water_amount_custom: '',
-      use_custom_water: false,
       dilution_ratio: '',
       dilution_ratio_custom: '',
       use_custom_dilution: false,
@@ -48,8 +46,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       usage_date: new Date().toISOString().split('T')[0],
       dosage: '',
       water_amount: '',
-      water_amount_custom: '',
-      use_custom_water: false,
       dilution_ratio: '',
       dilution_ratio_custom: '',
       use_custom_dilution: false,
@@ -59,26 +55,15 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
     }
   });
 
-  // 水の量の選択肢
-  const waterAmountOptions = [
-    { value: '100', label: '100ml' },
-    { value: '200', label: '200ml' },
-    { value: '500', label: '500ml' },
-    { value: '1000', label: '1L (1000ml)' },
-    { value: '2000', label: '2L (2000ml)' },
-    { value: '5000', label: '5L (5000ml)' },
-    { value: 'custom', label: 'その他（手入力）' }
-  ];
-
   // 希釈比の選択肢
   const dilutionRatioOptions = [
+    { value: '30', label: '30倍' },
+    { value: '50', label: '50倍' },
     { value: '100', label: '100倍' },
-    { value: '200', label: '200倍' },
+    { value: '300', label: '300倍' },
     { value: '500', label: '500倍' },
     { value: '1000', label: '1000倍' },
-    { value: '2000', label: '2000倍' },
-    { value: '3000', label: '3000倍' },
-    { value: '5000', label: '5000倍' },
+    { value: '1500', label: '1500倍' },
     { value: 'custom', label: 'その他（手入力）' }
   ];
 
@@ -91,12 +76,10 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
     '7月', '8月', '9月', '10月', '11月', '12月'
   ];
 
-  // 月次リスクと推奨農薬を取得
-  const fetchMonthlyRisks = async () => {
-    if (!bonsaiId) return;
-    
+  // ユーザーの盆栽一覧を取得
+  const fetchUserBonsaiList = async () => {
     try {
-      const response = await fetch(`${apiBaseUrl}/api/pesticides/monthly-risks/${bonsaiId}?user_id=${userId}`, {
+      const response = await fetch(`${apiBaseUrl}/api/bonsai/user/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -104,15 +87,20 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || '月次リスクの取得に失敗しました');
+        throw new Error('盆栽データの取得に失敗しました');
       }
 
       const data = await response.json();
-      setMonthlyRisks(data);
+      setUserBonsaiList(data);
+      
+      // 盆栽IDの有効性を再確認
+      if (bonsaiId && !data.some(bonsai => bonsai.id === bonsaiId)) {
+        window.selectedBonsaiId = null;
+        setBonsaiId(null);
+      }
     } catch (err) {
-      console.error('月次リスク取得エラー:', err);
-      setError(err.message || '月次リスクの取得中にエラーが発生しました。');
+      console.error('盆栽一覧取得エラー:', err);
+      setError('盆栽一覧の取得中にエラーが発生しました。');
     }
   };
 
@@ -147,6 +135,101 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
     }
   };
 
+  // 盆栽選択処理用の関数
+  const handleBonsaiChange = async (selectedId) => {
+    if (selectedId) {
+      setBonsaiId(selectedId);
+      window.selectedBonsaiId = selectedId;
+      
+      // ローディング開始
+      setLoading(true);
+      setError(null);
+      
+      try {
+        // 農薬リストを取得
+        await fetchPesticideList();
+        
+        // 並列でデータを取得
+        const [bonsaiRes, logsRes, risksRes, recommendationRes] = await Promise.all([
+          fetch(`${apiBaseUrl}/api/bonsai/${selectedId}?user_id=${userId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+          }),
+          fetch(`${apiBaseUrl}/api/pesticides/${selectedId}?user_id=${userId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+          }),
+          fetch(`${apiBaseUrl}/api/pesticides/monthly-risks/${selectedId}?user_id=${userId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+          }),
+          fetch(`${apiBaseUrl}/api/pesticides/recommendation/${selectedId}?user_id=${userId}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+          })
+        ]);
+        
+        // レスポンスを順次処理
+        if (bonsaiRes.ok) {
+          const bonsaiData = await bonsaiRes.json();
+          setBonsaiInfo(bonsaiData);
+        }
+        
+        if (logsRes.ok) {
+          const logsData = await logsRes.json();
+          setLogs(logsData);
+        }
+        
+        if (risksRes.ok) {
+          const risksData = await risksRes.json();
+          setMonthlyRisks(risksData);
+        } else {
+          setMonthlyRisks(null);
+        }
+        
+        if (recommendationRes.ok) {
+          const recommendationData = await recommendationRes.json();
+          setRecommendation(recommendationData);
+        } else {
+          setRecommendation(null);
+        }
+        
+      } catch (err) {
+        console.error('データ取得エラー:', err);
+        setError('データの取得中にエラーが発生しました。');
+      } finally {
+        setLoading(false);
+      }
+      
+    } else {
+      setBonsaiId(null);
+      window.selectedBonsaiId = null;
+      setBonsaiInfo(null);
+      setMonthlyRisks(null);
+      setRecommendation(null);
+      
+      // 全体の記録を取得
+      try {
+        setLoading(true);
+        const response = await fetch(`${apiBaseUrl}/api/pesticides/user/${userId}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setLogs(data);
+          setError(null);
+        }
+      } catch (err) {
+        console.error('全体記録取得エラー:', err);
+        setError('農薬記録の取得中にエラーが発生しました。');
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   // 農薬記録を削除する関数
   const handleDeleteLog = async (logId) => {
     if (!window.confirm('この農薬記録を削除してもよろしいですか？')) {
@@ -168,10 +251,10 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
 
       // 削除成功後、記録一覧を更新
       if (bonsaiId) {
-        fetchPesticideLogs();
-        fetchMonthlyRisks(); // 推奨も更新
+        // handleBonsaiChangeで再取得
+        await handleBonsaiChange(bonsaiId);
       } else {
-        fetchAllUserLogs();
+        await handleBonsaiChange(null);
       }
       
     } catch (err) {
@@ -186,9 +269,12 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
     }
   };
 
-  // ページ読み込み時の処理
+  // ユーザーの盆栽一覧を取得
   useEffect(() => {
     const checkBonsaiId = async () => {
+      // まずユーザーの盆栽一覧を取得
+      await fetchUserBonsaiList();
+      
       // URLパラメータから盆栽IDを取得
       const params = new URLSearchParams(window.location.search);
       const urlBonsaiId = params.get('bonsai_id');
@@ -199,156 +285,18 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       const targetId = urlBonsaiId || globalBonsaiId;
       
       if (targetId) {
-        setBonsaiId(targetId);
+        // handleBonsaiChangeを使用してデータを取得
+        await handleBonsaiChange(targetId);
       } else {
         console.log('盆栽IDが設定されていません。全体記録を表示します。');
-        setBonsaiId(null);
+        await handleBonsaiChange(null);
       }
     };
 
-    checkBonsaiId();
-  }, []);
-
-  // 盆栽IDが変更されたときの処理
-  useEffect(() => {
-    if (userId) {
-      if (bonsaiId) {
-        fetchPesticideLogs();
-        fetchMonthlyRisks();
-        fetchPesticideList();
-        fetchBonsaiInfo();
-        fetchRecommendation(); // 推奨情報も取得
-      } else {
-        fetchAllUserLogs();
-        fetchUserBonsaiList();
-      }
+    if (userId && apiBaseUrl) {
+      checkBonsaiId();
     }
-  }, [bonsaiId, userId, apiBaseUrl]);
-
-  // ユーザーの盆栽一覧を取得
-  const fetchUserBonsaiList = async () => {
-    try {
-      const response = await fetch(`${apiBaseUrl}/api/bonsai/user/${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error('盆栽データの取得に失敗しました');
-      }
-
-      const data = await response.json();
-      setUserBonsaiList(data);
-      
-      // 盆栽IDの有効性を再確認
-      if (bonsaiId && !data.some(bonsai => bonsai.id === bonsaiId)) {
-        window.selectedBonsaiId = null;
-        setBonsaiId(null);
-      }
-    } catch (err) {
-      console.error('盆栽一覧取得エラー:', err);
-      setError('盆栽一覧の取得中にエラーが発生しました。');
-    }
-  };
-
-  // 盆栽情報を取得
-  const fetchBonsaiInfo = async () => {
-    if (!bonsaiId) return;
-    
-    // 既に取得済みのユーザー盆栽リストから情報を取得
-    if (userBonsaiList.length > 0) {
-      const currentBonsai = userBonsaiList.find(b => b.id === bonsaiId);
-      if (currentBonsai) {
-        setBonsaiInfo(currentBonsai);
-        return;
-      }
-    }
-    
-    try {
-      const response = await fetch(`${apiBaseUrl}/api/bonsai/${bonsaiId}?user_id=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || '盆栽情報の取得に失敗しました');
-      }
-
-      const data = await response.json();
-      setBonsaiInfo(data);
-    } catch (err) {
-      console.error('盆栽情報取得エラー:', err);
-      setError(err.message || '盆栽情報の取得中にエラーが発生しました。');
-      // エラーが起きた場合は選択をクリア
-      window.selectedBonsaiId = null;
-      setBonsaiId(null);
-    }
-  };
-
-  // 農薬記録を取得
-  const fetchPesticideLogs = async () => {
-    if (!bonsaiId) return;
-    
-    try {
-      setLoading(true);
-      const response = await fetch(`${apiBaseUrl}/api/pesticides/${bonsaiId}?user_id=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || '農薬記録の取得に失敗しました');
-      }
-
-      const data = await response.json();
-      setLogs(data);
-      setError(null);
-    } catch (err) {
-      console.error('農薬記録取得エラー:', err);
-      setError(err.message || '農薬記録の取得中にエラーが発生しました。');
-      // エラーが起きた場合は選択をクリア
-      if (err.message.includes('権限がありません') || err.message.includes('見つかりません')) {
-        window.selectedBonsaiId = null;
-        setBonsaiId(null);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 全体のログを取得（盆栽が選択されていない場合）
-  const fetchAllUserLogs = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${apiBaseUrl}/api/pesticides/user/${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error('農薬記録の取得に失敗しました');
-      }
-
-      const data = await response.json();
-      setLogs(data);
-      setError(null);
-    } catch (err) {
-      console.error('農薬記録取得エラー:', err);
-      setError('農薬記録の取得中にエラーが発生しました。');
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [userId, apiBaseUrl]);
 
   // フォーム入力の処理
   const handleInputChange = (e) => {
@@ -372,18 +320,13 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
 
       // 薬剤量の自動計算
       if (field === 'pesticide_name' || field === 'customName' || 
-          field === 'water_amount' || field === 'water_amount_custom' ||
+          field === 'water_amount' ||
           field === 'dilution_ratio' || field === 'dilution_ratio_custom') {
         
         const currentData = updated[type];
         
-        // 水の量を取得（カスタム入力かどうかで分岐）
-        let waterAmount = '';
-        if (currentData.water_amount === 'custom') {
-          waterAmount = currentData.water_amount_custom;
-        } else {
-          waterAmount = currentData.water_amount;
-        }
+        // 水の量を取得（直接入力）
+        const waterAmount = currentData.water_amount;
         
         // 希釈比を取得（カスタム入力かどうかで分岐）
         let dilutionRatio = '';
@@ -395,7 +338,7 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         
         // 自動計算を実行（水の量と希釈比が揃っている場合のみ）
         if (waterAmount && dilutionRatio && 
-            waterAmount !== 'custom' && dilutionRatio !== 'custom' &&
+            dilutionRatio !== 'custom' &&
             !isNaN(parseFloat(waterAmount)) && !isNaN(parseFloat(dilutionRatio))) {
           const calculatedAmount = calculatePesticideAmount('dummy', waterAmount, dilutionRatio);
           updated[type].dosage = calculatedAmount;
@@ -427,8 +370,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         usage_date: currentDate,
         dosage: '',
         water_amount: '',
-        water_amount_custom: '',
-        use_custom_water: false,
         dilution_ratio: '',
         dilution_ratio_custom: '',
         use_custom_dilution: false,
@@ -442,8 +383,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         usage_date: currentDate,
         dosage: '',
         water_amount: '',
-        water_amount_custom: '',
-        use_custom_water: false,
         dilution_ratio: '',
         dilution_ratio_custom: '',
         use_custom_dilution: false,
@@ -509,9 +448,7 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       setShowAddForm(false);
       
       // データを再取得
-      fetchPesticideLogs();
-      fetchMonthlyRisks(); // 推奨も更新
-      fetchRecommendation(); // 推奨情報も更新
+      await handleBonsaiChange(bonsaiId);
       
     } catch (err) {
       console.error('農薬記録追加エラー:', err);
@@ -541,10 +478,8 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         return;
       }
 
-      // 水の量を取得（カスタム入力かどうかで分岐）
-      const waterAmount = newLogs.insecticide.water_amount === 'custom' ? 
-        newLogs.insecticide.water_amount_custom : 
-        newLogs.insecticide.water_amount;
+      // 水の量を取得（直接入力）
+      const waterAmount = newLogs.insecticide.water_amount;
 
       // 希釈比を取得（カスタム入力かどうかで分岐）
       const dilutionRatio = newLogs.insecticide.dilution_ratio === 'custom' ? 
@@ -573,10 +508,8 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
         return;
       }
 
-      // 水の量を取得（カスタム入力かどうかで分岐）
-      const waterAmount = newLogs.fungicide.water_amount === 'custom' ? 
-        newLogs.fungicide.water_amount_custom : 
-        newLogs.fungicide.water_amount;
+      // 水の量を取得（直接入力）
+      const waterAmount = newLogs.fungicide.water_amount;
 
       // 希釈比を取得（カスタム入力かどうかで分岐）
       const dilutionRatio = newLogs.fungicide.dilution_ratio === 'custom' ? 
@@ -621,9 +554,7 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
       setShowAddForm(false);
       
       // データを再取得
-      fetchPesticideLogs();
-      fetchMonthlyRisks(); // 推奨も更新
-      fetchRecommendation(); // 推奨情報も更新
+      await handleBonsaiChange(bonsaiId);
       
     } catch (err) {
       console.error('農薬記録追加エラー:', err);
@@ -749,26 +680,19 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
           
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="water_amount">水の量</label>
-              <select
-                id="water_amount"
+              <label>水の量 [ml] *</label>
+              <input
+                type="text"
                 value={newLog.water_amount}
                 onChange={(e) => handleInputChange({ target: { name: 'water_amount', value: e.target.value } })}
+                placeholder="例: 500ml"
                 required
-              >
-                <option value="">水の量を選択</option>
-                {waterAmountOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
             
             <div className="form-group">
-              <label htmlFor="dilution_ratio">希釈比</label>
+              <label>希釈比</label>
               <select
-                id="dilution_ratio"
                 value={newLog.dilution_ratio}
                 onChange={(e) => handleInputChange({ target: { name: 'dilution_ratio', value: e.target.value } })}
                 required
@@ -780,6 +704,16 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
                   </option>
                 ))}
               </select>
+              {newLog.dilution_ratio === 'custom' && (
+                <input
+                  type="text"
+                  value={newLog.dilution_ratio_custom}
+                  onChange={(e) => handleInputChange({ target: { name: 'dilution_ratio_custom', value: e.target.value } })}
+                  placeholder="例: 1500"
+                  className="custom-input"
+                  required
+                />
+              )}
             </div>
           </div>
           
@@ -902,29 +836,14 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label>水の量 *</label>
-                  <select
+                  <label>水の量 [ml] *</label>
+                  <input
+                    type="text"
                     value={data.water_amount}
                     onChange={(e) => handleNewLogChange(type, 'water_amount', e.target.value)}
+                    placeholder="例: 500ml"
                     required
-                  >
-                    <option value="">水の量を選択</option>
-                    {waterAmountOptions.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                  {data.water_amount === 'custom' && (
-                    <input
-                      type="text"
-                      value={data.water_amount_custom}
-                      onChange={(e) => handleNewLogChange(type, 'water_amount_custom', e.target.value)}
-                      placeholder="例: 750ml"
-                      className="custom-input"
-                      required
-                    />
-                  )}
+                  />
                 </div>
                 <div className="form-group">
                   <label>希釈比 *</label>
@@ -1122,34 +1041,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
     );
   };
 
-  // 農薬推奨情報を取得
-  const fetchRecommendation = async () => {
-    if (!bonsaiId) return;
-    
-    try {
-      setRecommendationLoading(true);
-      const response = await fetch(`${apiBaseUrl}/api/pesticides/recommendation/${bonsaiId}?user_id=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || '推奨情報の取得に失敗しました');
-      }
-
-      const data = await response.json();
-      setRecommendation(data);
-    } catch (err) {
-      console.error('推奨情報取得エラー:', err);
-      setRecommendation(null);
-    } finally {
-      setRecommendationLoading(false);
-    }
-  };
-
   // 推奨農薬表示エリアのレンダリング
   const renderRecommendationSummary = () => {
     if (!bonsaiId) return null;
@@ -1316,17 +1207,6 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
             </div>
           )}
           
-          {/* 全般情報 */}
-          {/* {recommendation?.general_info && (
-            <div className="general-info">
-              <div className="season-info">
-                <span className="season-advice">{recommendation.general_info.season_advice}</span>
-                {recommendation.general_info.days_since_last !== undefined && (
-                  <span className="days-since-last">前回散布から{recommendation.general_info.days_since_last}日経過</span>
-                )}
-              </div>
-            </div>
-          )} */}
         </div>
       </div>
     );
@@ -1456,6 +1336,23 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
             </span>
           )}
         </h1>
+      </div>
+
+      {/* 盆栽選択セクション */}
+      <div className="bonsai-selector">
+        <label htmlFor="bonsai-select">盆栽を選択してください:</label>
+        <select 
+          id="bonsai-select"
+          value={bonsaiId || ''} 
+          onChange={(e) => handleBonsaiChange(e.target.value)}
+        >
+          <option value="">全体の記録を表示</option>
+          {userBonsaiList.map(bonsai => (
+            <option key={bonsai.id} value={bonsai.id}>
+              {bonsai.name} {bonsai.species && `(${bonsai.species})`}
+            </option>
+          ))}
+        </select>
       </div>
 
       {error && <div className="error-message">{error}</div>}

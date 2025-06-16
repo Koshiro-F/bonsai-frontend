@@ -309,6 +309,12 @@
   transform: translateY(-1px);
 }
 
+.bonsai-add-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* レスポンシブ対応 */
 @media (max-width: 1024px) {
   .bonsai-gallery-container {
@@ -333,11 +339,11 @@
   }
 
   .page-header h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     text-align: center;
+    margin-left: 10px;
   }
 
-  .back-button,
   .add-button {
     width: 120px;
     justify-content: center;
@@ -389,10 +395,6 @@
 @media (max-width: 480px) {
   .bonsai-gallery-container {
     padding: 8px;
-  }
-
-  .page-header h1 {
-    font-size: 1.3rem;
   }
 
   .image-gallery {
