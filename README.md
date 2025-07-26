@@ -1,12 +1,127 @@
-# React + Vite
+# 盆栽管理システム - Reactフロントエンド
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+盆栽の管理、記録、写真管理を行うWebアプリケーションのフロントエンド部分です。
 
-Currently, two official plugins are available:
+## 概要
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+このアプリケーションは盆栽愛好家向けの管理システムで、以下の機能を提供します：
 
-## Expanding the ESLint configuration
+- **ユーザー認証**: ログイン・新規登録機能
+- **盆栽管理**: 盆栽の一覧表示、追加、編集、削除
+- **作業記録**: 盆栽の作業履歴の記録と管理
+- **農薬記録**: 農薬使用履歴の記録と管理
+- **写真ギャラリー**: 盆栽の写真管理
+- **管理者機能**: ユーザー管理、システム設定
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 技術スタック
+
+- **React 19.1.0** - UIライブラリ
+- **React Router DOM 7.6.0** - ルーティング
+- **Vite 6.3.5** - ビルドツール
+- **CSS** - スタイリング
+
+## セットアップ
+
+### 前提条件
+
+- Node.js (v18以上推奨)
+- npm または yarn
+
+### インストール
+
+```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
+npm run dev
+```
+
+### 環境設定
+
+アプリケーションは以下の環境に応じてAPIエンドポイントを自動設定します：
+
+- **開発環境**: `http://localhost:6000`
+- **本番環境**: `https://bonsai-backend.modur4.com`
+
+## プロジェクト構造
+
+```
+src/
+├── App.jsx              # メインアプリケーションコンポーネント
+├── LoginForm.jsx        # ログインフォーム
+├── RegisterForm.jsx     # 新規登録フォーム
+├── Dashboard.jsx        # メインダッシュボード
+├── pages/               # ページコンポーネント
+│   ├── BonsaiList.jsx   # 盆栽一覧
+│   ├── WorkLog.jsx      # 作業記録
+│   ├── PesticideLog.jsx # 農薬記録
+│   ├── BonsaiGallery.jsx # 写真ギャラリー
+│   ├── AdminMaster.jsx  # 管理者機能
+│   └── ImageUploader.jsx # 画像アップロード
+└── assets/              # 静的ファイル
+```
+
+## 主要機能
+
+### 1. ユーザー認証
+- ログイン機能
+- 新規ユーザー登録
+- セッション管理
+
+### 2. 盆栽管理 (BonsaiList)
+- 盆栽の一覧表示
+- 新規盆栽の追加
+- 盆栽情報の編集・削除
+- 検索・フィルタリング機能
+
+### 3. 作業記録 (WorkLog)
+- 盆栽の作業履歴記録
+- 作業内容の詳細管理
+- 日付別の作業履歴表示
+
+### 4. 農薬記録 (PesticideLog)
+- 農薬使用履歴の記録
+- 使用量・濃度の管理
+- 安全な使用間隔の管理
+
+### 5. 写真ギャラリー (BonsaiGallery)
+- 盆栽の写真管理
+- 画像のアップロード・削除
+- 写真の一覧表示
+
+### 6. 管理者機能 (AdminMaster)
+- ユーザー管理
+- システム設定
+- 権限管理
+
+## 開発コマンド
+
+```bash
+# 開発サーバー起動
+npm run dev
+
+# プロダクションビルド
+npm run build
+
+# ビルドのプレビュー
+npm run preview
+
+# リンター実行
+npm run lint
+```
+
+## 開発サーバー
+
+開発サーバーは `http://localhost:6173` で起動します。
+
+## バックエンドAPI
+
+このフロントエンドは以下のバックエンドAPIと連携します：
+
+- **開発環境**: `http://localhost:6000`
+- **本番環境**: `https://bonsai-backend.modur4.com`
+
+## ライセンス
+
+このプロジェクトはプライベートプロジェクトです。
