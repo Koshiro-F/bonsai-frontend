@@ -763,7 +763,7 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
                 onChange={() => togglePesticideType(type)}
               />
               <span className="section-title" style={{ color: color }}>
-                {icon} {title}
+                {title}
               </span>
             </label>
           </div>
@@ -1252,14 +1252,14 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
     return (
       <div className="pesticide-log-container">
         {/* 盆栽一覧に戻るボタンを一番左上に独立配置 */}
-        <div className="top-back-button-container">
+        {/* <div className="top-back-button-container">
           <button 
             className="back-button"
             onClick={navigateToBonsaiList}
           >
             ←盆栽一覧に戻る
           </button>
-        </div>
+        </div> */}
 
         <div className="page-header">
           <h1>農薬記録</h1>
@@ -1317,14 +1317,14 @@ const PesticideLog = ({ apiBaseUrl, userId }) => {
   return (
     <div className="pesticide-log-container">
       {/* 盆栽一覧に戻るボタンを一番左上に独立配置 */}
-      <div className="top-back-button-container">
+      {/* <div className="top-back-button-container">
         <button 
           className="back-button"
           onClick={navigateToBonsaiList}
         >
           ←盆栽一覧に戻る
         </button>
-      </div>
+      </div> */}
 
       <div className="page-header">
         <h1>

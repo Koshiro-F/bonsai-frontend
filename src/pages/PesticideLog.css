@@ -1120,11 +1120,11 @@
 
 @media (max-width: 480px) {
   .section-toggle {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .section-title {
-    font-size: 0.9rem;
+    font-size: 1.4rem;
   }
 
   .pesticide-section {
