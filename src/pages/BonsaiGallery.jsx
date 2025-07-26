@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './Pages.css';
+import './BonsaiGallery.css';
 import ImageUploader from './ImageUploader';
 
 const BonsaiGallery = ({ apiBaseUrl, userId, bonsaiId }) => {
@@ -137,6 +137,8 @@ const BonsaiGallery = ({ apiBaseUrl, userId, bonsaiId }) => {
           ← 盆栽一覧に戻る
         </button>
         <h1>{bonsaiInfo?.name} の画像ギャラリー</h1>
+      </div>
+      <div className="bonsai-add-button">
         <button 
           className="add-button"
           onClick={() => setShowImageUploader(true)}

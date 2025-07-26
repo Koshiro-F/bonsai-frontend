@@ -1,0 +1,254 @@
+/* ImageUploader コンポーネント専用スタイル */
+
+.image-uploader {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.image-uploader h3 {
+  color: #2c3e50;
+  margin: 0 0 24px 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.upload-area {
+  margin-bottom: 24px;
+}
+
+/* ドラッグ&ドロップエリア */
+.drop-zone {
+  border: 2px dashed #cbd5e0;
+  border-radius: 12px;
+  padding: 48px 24px;
+  text-align: center;
+  background-color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drop-zone:hover {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.drop-zone p {
+  margin: 8px 0;
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.drop-zone p:first-child {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #475569;
+}
+
+.file-input-label {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  margin-top: 12px;
+}
+
+.file-input-label:hover {
+  background-color: #2563eb;
+}
+
+.file-input {
+  display: none;
+}
+
+/* プレビューエリア */
+.preview-container {
+  text-align: center;
+  position: relative;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: block;
+  margin: 0 auto;
+}
+
+.change-image-btn {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+.change-image-btn:hover {
+  background-color: #e2e8f0;
+}
+
+/* エラーメッセージ */
+.error-message {
+  background-color: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 6px;
+  color: #b91c1c;
+  font-weight: 500;
+}
+
+/* アクションボタンエリア */
+.uploader-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.submit-button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cancel-button {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.cancel-button:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .image-uploader {
+    margin: 16px;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .image-uploader h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
+  .drop-zone {
+    padding: 32px 16px;
+  }
+
+  .drop-zone p {
+    font-size: 0.9rem;
+  }
+
+  .file-input-label {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .image-preview {
+    max-height: 300px;
+  }
+
+  .uploader-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .submit-button,
+  .cancel-button {
+    width: 100%;
+    padding: 14px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-uploader {
+    margin: 12px;
+    padding: 16px;
+  }
+
+  .image-uploader h3 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .drop-zone {
+    padding: 24px 12px;
+  }
+
+  .drop-zone p:first-child {
+    font-size: 1rem;
+  }
+
+  .drop-zone p {
+    font-size: 0.85rem;
+  }
+
+  .file-input-label {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .image-preview {
+    max-height: 250px;
+  }
+
+  .change-image-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .error-message {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .submit-button,
+  .cancel-button {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+} 

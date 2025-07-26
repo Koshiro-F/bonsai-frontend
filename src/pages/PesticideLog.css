@@ -3,7 +3,7 @@
 /* 農薬記録ページスタイル */
 .pesticide-log-container {
   padding: 20px;
-  height: 100%;
+  min-height: 100vh;
 }
 
 /* 一番上の戻るボタンのスタイル */
@@ -21,6 +21,7 @@
   font-weight: 500;
   transition: background-color 0.2s;
   display: inline-block;
+  width: 150px;
 }
 
 .top-back-button-container .back-button:hover {
@@ -44,6 +45,7 @@
   font-size: 1rem;
   transition: background-color 0.2s;
   box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+  width: 50%;
 }
 
 .add-button-container .add-button:hover {
@@ -264,12 +266,13 @@
 
 .disclaimer-box ul {
   margin: 0;
-  padding-left: 1.2rem;
+  padding-left: 0.2rem;
   color: #6c757d;
 }
 
 .disclaimer-box li {
   margin-bottom: 0.3rem;
+  list-style: none;
 }
 
 .risk-analysis-grid {
@@ -1117,14 +1120,110 @@
 
 @media (max-width: 480px) {
   .section-toggle {
-    font-size: 0.9rem;
+    flex-direction: row;
   }
-  
+
   .section-title {
-    font-size: 0.9rem;
+    font-size: 1.4rem;
   }
-  
+
   .pesticide-section {
-    padding: 0.75rem;
+    margin-bottom: 1rem;
   }
+}
+
+/* 自動計算とカスタム入力のスタイル */
+.auto-calculated {
+  background-color: #e8f5e8;
+  border-color: #28a745;
+  font-weight: 500;
+}
+
+.auto-calculated:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+.calculation-note {
+  display: block;
+  margin-top: 0.25rem;
+  color: #28a745;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.custom-input {
+  margin-top: 0.5rem;
+  border-color: #ffc107;
+  background-color: #fff8e1;
+}
+
+.custom-input:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+}
+
+.form-group select:required:invalid {
+  border-color: #dc3545;
+}
+
+.form-group select:required:valid {
+  border-color: #28a745;
+}
+
+/* 選択肢のスタイル改善 */
+.form-group select option {
+  padding: 0.5rem;
+}
+
+.form-group select option:disabled {
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* 薬剤量フィールドの特別なスタイル */
+.dosage-field {
+  position: relative;
+}
+
+.dosage-field.has-calculation::after {
+  content: "🧮";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1.2rem;
+}
+
+/* 盆栽選択セクション */
+.bonsai-selector {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.bonsai-selector label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+.bonsai-selector select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: white;
+  transition: border-color 0.3s ease;
+}
+
+.bonsai-selector select:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
 } 

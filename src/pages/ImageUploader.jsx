@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Pages.css';
+import './ImageUploader.css';
 
 const ImageUploader = ({ bonsaiId, userId, apiBaseUrl, onSuccess, onCancel }) => {
   const [selectedFile, setSelectedFile] = useState(null);

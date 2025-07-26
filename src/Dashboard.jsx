@@ -7,6 +7,7 @@ import BonsaiList from './pages/BonsaiList';
 import PesticideLog from './pages/PesticideLog';
 import BonsaiGallery from './pages/BonsaiGallery';
 import AdminMaster from './pages/AdminMaster';
+import WorkLog from './pages/WorkLog';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -190,6 +191,8 @@ function Dashboard() {
         return <BonsaiList apiBaseUrl={API_BASE_URL} userId={userId} />;
       case 'pesticide-log':
         return <PesticideLog apiBaseUrl={API_BASE_URL} userId={userId} />;
+      case 'work-log':
+        return <WorkLog apiBaseUrl={API_BASE_URL} userId={userId} />;
       case 'bonsai-gallery':
         return <BonsaiGallery 
           apiBaseUrl={API_BASE_URL} 
@@ -242,6 +245,12 @@ function Dashboard() {
             >
               農薬記録
             </li>
+            <li 
+              className={currentPage === 'work-log' ? 'active' : ''} 
+              onClick={() => setCurrentPage('work-log')}
+            >
+              作業記録
+            </li>
             {/* 管理者のみにマスタ管理リンクを表示 */}
             {isAdmin && (
               <>
@@ -279,6 +288,12 @@ function Dashboard() {
           onClick={() => setCurrentPage('pesticide-log')}
         >
           農薬記録
+        </div>
+        <div 
+          className={currentPage === 'work-log' ? 'active' : ''} 
+          onClick={() => setCurrentPage('work-log')}
+        >
+          作業記録
         </div>
         {/* 管理者のみにモバイル管理メニューを表示 */}
         {isAdmin && (

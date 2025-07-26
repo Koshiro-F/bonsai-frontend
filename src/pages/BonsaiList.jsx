@@ -209,6 +209,14 @@ const BonsaiList = ({ apiBaseUrl, userId }) => {
     window.setCurrentPage('pesticide-log');
   };
 
+  // 作業記録ページへの遷移
+  const navigateToWorkLog = (bonsaiId) => {
+    // グローバル変数に盆栽IDと現在のユーザーIDを保存
+    window.selectedBonsaiId = bonsaiId;
+    window.selectedBonsaiUserId = userId;
+    window.setCurrentPage('work-log');
+  };
+
   // 画像ギャラリーページへの遷移
   const navigateToGallery = (bonsaiId) => {
     // グローバル変数に盆栽IDと現在のユーザーIDを保存
@@ -400,6 +408,13 @@ const BonsaiList = ({ apiBaseUrl, userId }) => {
               {bonsai.species && <div className="species">{bonsai.species}</div>}
               <div className="notes">{bonsai.notes}</div>
               <div className="card-actions">
+                <button 
+                  className="pesticide-button"
+                  onClick={() => navigateToWorkLog(bonsai.id)}
+                  style={{ marginBottom: '10px' }}
+                >
+                  作業記録を見る
+                </button>
                 <button 
                   className="pesticide-button"
                   onClick={() => navigateToPesticideLogs(bonsai.id)}
